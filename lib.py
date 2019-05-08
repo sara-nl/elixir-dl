@@ -17,6 +17,8 @@ from itertools import product
 from vis.utils import utils
 from vis.visualization import visualize_activation, visualize_cam, overlay
 from matplotlib import cm
+import warnings
+from skimage.transform import rescale
 
 from keras import activations
 from vis.visualization import get_num_filters
@@ -316,11 +318,23 @@ def _generate_plantvillage_tomato_dataset(path, x_output_path, y_output_path):
 
 def dataset_plant_village_tomato_blight():
     ROOT = 'data/plant-village-tomato-blight'
+    X = np.load(os.path.join(ROOT, 'X.npy'))
+    
+    X_rescaled = np.zeros((X.shape[0], 128, 128, 3))
+    
+    # Last-minute fix for lower-capacity instances
+    
+    with warnings.catch_warnings():
+        for i in tqdm_notebook(list(range(X.shape[0]))):
+            warnings.simplefilter("ignore")
+            X_rescaled[i] = rescale(X[i], 128 / 256, multichannel=True)
+
     return (
-        np.load(os.path.join(ROOT, 'X.npy')),
+        X_rescaled,
         np.load(os.path.join(ROOT, 'Y.npy')),
         ['diseased', 'healthy']
     )
+
 
 
 def dataset_plant_village_tomato():
