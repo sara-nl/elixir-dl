@@ -11,6 +11,7 @@ Create a new Python 3 environment and install the following packages:
 - `seaborn`
 - `keras`
 - `keras-vis` installed from Github instead of Anaconda/PyPy.
+- `tqdm`
 - `jupyter`
 
 Navigate to this directory and tart a Jupyer notebook in your environment using the cli:
