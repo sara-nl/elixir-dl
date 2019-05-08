@@ -29,8 +29,8 @@ import matplotlib
 
 from keras import backend as K
 tf_conf = K.tf.ConfigProto( 
-    intra_op_parallelism_threads=7, 
-    inter_op_parallelism_threads=7
+    intra_op_parallelism_threads=2, 
+    inter_op_parallelism_threads=2
 )
 K.set_session(K.tf.Session(config=tf_conf))
 
